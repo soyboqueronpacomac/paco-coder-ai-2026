@@ -2,6 +2,8 @@
 set -uo pipefail
 
 DIRECTORIO_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIRECTORIO_SCRIPT/config.sh"
+
 CATEGORIAS_SOPORTADAS="shell terminal multiplexor prompt devtools"
 
 asegurar_homebrew() {

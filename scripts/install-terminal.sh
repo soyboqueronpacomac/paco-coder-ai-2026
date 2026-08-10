@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-EMULADORES_SOPORTADOS="alacritty kitty wezterm hyper ghostty"
+DIRECTORIO_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIRECTORIO_SCRIPT/config.sh"
 
 detectar_emulador_actual() {
   case "${TERM_PROGRAM:-}" in

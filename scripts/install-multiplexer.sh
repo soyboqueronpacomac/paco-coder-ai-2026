@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MULTIPLEXORES_SOPORTADOS="tmux zellij herdr ninguno"
+DIRECTORIO_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIRECTORIO_SCRIPT/config.sh"
 
 es_macos() {
   [[ "$(uname -s)" == "Darwin" ]]

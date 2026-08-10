@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SHELLS_SOPORTADOS=("zsh" "bash" "fish")
+DIRECTORIO_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIRECTORIO_SCRIPT/config.sh"
 
 detectar_shell_actual() {
   basename "${SHELL:-desconocido}"

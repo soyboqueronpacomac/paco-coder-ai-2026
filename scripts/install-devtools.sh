@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-HERRAMIENTAS_SOPORTADAS="node bun go php composer laravel herd"
+DIRECTORIO_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DIRECTORIO_SCRIPT/config.sh"
 
 es_macos() {
   [[ "$(uname -s)" == "Darwin" ]]
