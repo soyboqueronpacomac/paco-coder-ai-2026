@@ -17,6 +17,7 @@ Añadir al `README.md` una sección que documente un asistente de instalación c
 ## Mecanismo propuesto
 
 - Un script `scripts/install-shell.sh`, referenciado desde el `README.md`, que implementa la detección y el menú de elección.
+- En macOS, si Homebrew no está instalado, el script lo instala antes de instalar el shell elegido.
 - El `README.md` documenta cómo invocar el script (p. ej. `./scripts/install-shell.sh`) y qué esperar de su ejecución.
 
 ## Shells soportados
