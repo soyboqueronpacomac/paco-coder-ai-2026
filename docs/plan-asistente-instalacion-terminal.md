@@ -17,6 +17,8 @@ Añadir al `README.md` una sección que documente un asistente de instalación c
 ## Mecanismo propuesto
 
 - Un script `scripts/install-terminal.sh`, referenciado desde el `README.md`, que implementa la detección y el menú de elección.
+- La confirmación de instalar/cambiar usa un prompt `[S/n]` (por defecto `n`, mantener).
+- La elección del emulador usa `fzf` (lista interactiva de selección única), instalando `fzf` vía Homebrew si falta.
 - En macOS, si Homebrew no está instalado, el script lo instala antes de instalar el emulador elegido (vía `brew install --cask`).
 - El `README.md` documenta cómo invocar el script (p. ej. `./scripts/install-terminal.sh`) y qué esperar de su ejecución.
 

@@ -21,8 +21,8 @@ El proyecto incluye un asistente para detectar tu shell actual y, opcionalmente,
 El script:
 
 1. Detecta el shell actual (variable `$SHELL`).
-2. Pregunta si quieres mantenerlo o instalar otro.
-3. Si eliges instalar otro, muestra los shells soportados: `zsh`, `bash`, `fish`.
+2. Pregunta `¿Instalar o cambiar shell? [S/n]` (Enter vacío o `n` mantiene el actual).
+3. Si respondes `S`, instala `fzf` si falta y te deja elegir un shell de una lista interactiva: `zsh`, `bash`, `fish`.
 4. En macOS, instala Homebrew primero si no está presente.
 5. Instala el shell elegido con el gestor de paquetes disponible (`brew` en macOS, `apt` en Linux).
 6. Pregunta si quieres establecerlo como shell por defecto.
@@ -38,7 +38,7 @@ El proyecto incluye un asistente para detectar tu emulador de terminal actual y,
 El script:
 
 1. Detecta el emulador de terminal actual.
-2. Pregunta si quieres mantenerlo o instalar otro.
-3. Si eliges instalar otro, muestra los emuladores soportados: `alacritty`, `kitty`, `wezterm`, `hyper`, `ghostty`.
+2. Pregunta `¿Instalar o cambiar emulador? [S/n]` (Enter vacío o `n` mantiene el actual).
+3. Si respondes `S`, instala `fzf` si falta y te deja elegir un emulador de una lista interactiva: `alacritty`, `kitty`, `wezterm`, `hyper`, `ghostty`.
 4. En macOS, instala Homebrew primero si no está presente.
 5. Instala el emulador elegido con `brew install --cask` (solo macOS por ahora).

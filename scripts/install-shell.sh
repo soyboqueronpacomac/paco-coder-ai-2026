@@ -28,6 +28,15 @@ asegurar_homebrew() {
   eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
+asegurar_fzf() {
+  if command -v fzf >/dev/null 2>&1; then
+    return 0
+  fi
+  echo "fzf no está instalado. Instalando..."
+  asegurar_homebrew
+  brew install fzf
+}
+
 gestor_paquetes() {
   if es_macos; then
     asegurar_homebrew >&2
@@ -79,14 +88,16 @@ main() {
   shell_actual=$(detectar_shell_actual)
   echo "Shell detectado: $shell_actual"
 
-  read -r -p "¿Quieres mantener $shell_actual o instalar otro? [mantener/instalar] " decision
-  if [[ "$decision" != "instalar" ]]; then
+  read -r -p "¿Instalar o cambiar shell? [S/n] " decision
+  decision="${decision:-n}"
+  if [[ ! "$decision" =~ ^[Ss]$ ]]; then
     echo "Manteniendo $shell_actual. No se realizan cambios."
     exit 0
   fi
 
-  echo "Shells soportados: ${SHELLS_SOPORTADOS[*]}"
-  read -r -p "¿Qué shell quieres instalar? " shell_elegido
+  asegurar_fzf
+  local shell_elegido
+  shell_elegido=$(printf '%s\n' "${SHELLS_SOPORTADOS[@]}" | fzf --prompt="Elige un shell> ")
 
   if ! shell_soportado "$shell_elegido"; then
     echo "Shell no soportado: $shell_elegido" >&2

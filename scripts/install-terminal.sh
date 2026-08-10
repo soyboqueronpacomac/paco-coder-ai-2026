@@ -42,6 +42,15 @@ asegurar_homebrew() {
   eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
+asegurar_fzf() {
+  if command -v fzf >/dev/null 2>&1; then
+    return 0
+  fi
+  echo "fzf no está instalado. Instalando..."
+  asegurar_homebrew
+  brew install fzf
+}
+
 instalar_emulador() {
   local emulador_elegido="$1"
 
@@ -65,14 +74,16 @@ main() {
   emulador_actual=$(detectar_emulador_actual)
   echo "Emulador de terminal detectado: $emulador_actual"
 
-  read -r -p "¿Quieres mantenerlo o instalar otro? [mantener/instalar] " decision
-  if [[ "$decision" != "instalar" ]]; then
+  read -r -p "¿Instalar o cambiar emulador? [S/n] " decision
+  decision="${decision:-n}"
+  if [[ ! "$decision" =~ ^[Ss]$ ]]; then
     echo "Manteniendo $emulador_actual. No se realizan cambios."
     exit 0
   fi
 
-  echo "Emuladores soportados: $EMULADORES_SOPORTADOS"
-  read -r -p "¿Qué emulador quieres instalar? " emulador_elegido
+  asegurar_fzf
+  local emulador_elegido
+  emulador_elegido=$(printf '%s\n' $EMULADORES_SOPORTADOS | fzf --prompt="Elige un emulador> ")
 
   if ! emulador_soportado "$emulador_elegido"; then
     echo "Emulador no soportado: $emulador_elegido" >&2
