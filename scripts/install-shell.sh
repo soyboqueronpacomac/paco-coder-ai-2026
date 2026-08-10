@@ -28,13 +28,13 @@ asegurar_homebrew() {
   eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
-asegurar_fzf() {
-  if command -v fzf >/dev/null 2>&1; then
+asegurar_gum() {
+  if command -v gum >/dev/null 2>&1; then
     return 0
   fi
-  echo "fzf no está instalado. Instalando..."
+  echo "gum no está instalado. Instalando..."
   asegurar_homebrew
-  brew install fzf
+  brew install gum
 }
 
 gestor_paquetes() {
@@ -88,16 +88,15 @@ main() {
   shell_actual=$(detectar_shell_actual)
   echo "Shell detectado: $shell_actual"
 
-  read -r -p "¿Instalar o cambiar shell? [S/n] " decision
-  decision="${decision:-n}"
-  if [[ ! "$decision" =~ ^[Ss]$ ]]; then
+  asegurar_gum
+
+  if ! gum confirm --default=false "¿Instalar o cambiar shell?"; then
     echo "Manteniendo $shell_actual. No se realizan cambios."
     exit 0
   fi
 
-  asegurar_fzf
   local shell_elegido
-  shell_elegido=$(printf '%s\n' "${SHELLS_SOPORTADOS[@]}" | fzf --prompt="Elige un shell> ")
+  shell_elegido=$(gum choose "${SHELLS_SOPORTADOS[@]}")
 
   if ! shell_soportado "$shell_elegido"; then
     echo "Shell no soportado: $shell_elegido" >&2
