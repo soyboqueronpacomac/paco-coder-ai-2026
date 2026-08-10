@@ -2,6 +2,14 @@
 
 ## Instalación
 
+Punto de entrada recomendado: un único asistente que te deja elegir qué configurar.
+
+```bash
+./scripts/install.sh
+```
+
+Pregunta si quieres configurar `shell`, `terminal`, o `ambos`, y ejecuta el/los asistente(s) correspondiente(s) descritos abajo. También puedes ejecutar cada asistente por separado.
+
 ### Shell
 
 El proyecto incluye un asistente para detectar tu shell actual y, opcionalmente, instalar otro.
