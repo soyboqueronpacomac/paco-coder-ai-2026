@@ -10,7 +10,9 @@ Punto de entrada recomendado:
 ./scripts/install.sh
 ```
 
-Muestra un checklist (`gum choose --no-limit`) con las categorías disponibles — `shell`, `terminal`, `multiplexor`, `prompt`, `devtools` — y ejecuta en secuencia el asistente de cada categoría marcada. También puedes ejecutar cada asistente por separado.
+Muestra un checklist (`gum choose --no-limit`) con las categorías disponibles — `shell`, `terminal`, `multiplexor`, `prompt`, `devtools`, `ai-agents` — y ejecuta en secuencia el asistente de cada categoría marcada. También puedes ejecutar cada asistente por separado.
+
+Al terminar, guarda un registro de las categorías configuradas en esa ejecución en `${XDG_CONFIG_HOME:-$HOME/.config}/pacocoderai/config.yml`.
 
 ### Shell
 
@@ -60,3 +62,11 @@ Pregunta con `gum confirm` si quieres instalar y configurar [Starship](https://s
 ```
 
 Checklist (`gum choose --no-limit`) para instalar, en cualquier combinación: Node LTS (vía `fnm`), Bun, Go, PHP, Composer, Laravel y Herd. Si eliges Laravel sin PHP ni Composer, se instalan automáticamente como prerequisitos.
+
+### Agentes de IA
+
+```bash
+./scripts/install-ai-agents.sh
+```
+
+Checklist (`gum choose --no-limit`) para instalar, en cualquier combinación (o ninguna): Claude Code, Codex CLI y Gemini CLI (vía `npm install -g`, requieren Node/npm — instálalo primero con el asistente de herramientas de desarrollo) y OpenCode (vía Homebrew).

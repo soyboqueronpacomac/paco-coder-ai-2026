@@ -4,7 +4,7 @@ set -uo pipefail
 DIRECTORIO_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$DIRECTORIO_SCRIPT/config.sh"
 
-CATEGORIAS_SOPORTADAS="shell terminal multiplexor prompt devtools"
+CATEGORIAS_SOPORTADAS="shell terminal multiplexor prompt devtools ai-agents"
 
 asegurar_homebrew() {
   if command -v brew >/dev/null 2>&1; then
@@ -46,10 +46,32 @@ ejecutar_categoria() {
       echo "== Asistente de herramientas de desarrollo =="
       "$DIRECTORIO_SCRIPT/install-devtools.sh"
       ;;
+    ai-agents)
+      echo "== Asistente de agentes de IA =="
+      "$DIRECTORIO_SCRIPT/install-ai-agents.sh"
+      ;;
     *)
       echo "Categoría no reconocida: $1" >&2
       ;;
   esac
+}
+
+escribir_registro() {
+  local categorias="$1"
+  local directorio_config="${XDG_CONFIG_HOME:-$HOME/.config}/pacocoderai"
+  local archivo_config="$directorio_config/config.yml"
+
+  mkdir -p "$directorio_config"
+
+  {
+    echo "fecha: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    echo "categorias:"
+    while IFS= read -r categoria; do
+      echo "  - $categoria"
+    done <<< "$categorias"
+  } > "$archivo_config"
+
+  echo "Registro guardado en $archivo_config"
 }
 
 main() {
@@ -66,6 +88,8 @@ main() {
   while IFS= read -r categoria; do
     ejecutar_categoria "$categoria"
   done <<< "$seleccion"
+
+  escribir_registro "$seleccion"
 }
 
 main
