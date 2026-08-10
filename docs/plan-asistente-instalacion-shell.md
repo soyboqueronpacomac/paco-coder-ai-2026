@@ -18,7 +18,7 @@ Añadir al `README.md` una sección que documente un asistente de instalación c
 
 - Un script `scripts/install-shell.sh`, referenciado desde el `README.md`, que implementa la detección y el menú de elección.
 - La confirmación de instalar/cambiar usa un prompt `[S/n]` (por defecto `n`, mantener).
-- La elección del shell usa `fzf` (lista interactiva de selección única), instalando `fzf` vía Homebrew si falta.
+- La elección del shell usa `gum choose` (lista interactiva de selección única), instalando `gum` vía Homebrew si falta.
 - En macOS, si Homebrew no está instalado, el script lo instala antes de instalar el shell elegido.
 - El `README.md` documenta cómo invocar el script (p. ej. `./scripts/install-shell.sh`) y qué esperar de su ejecución.
 

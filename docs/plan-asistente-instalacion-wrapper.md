@@ -6,6 +6,8 @@ Ya existen dos asistentes de instalación independientes: `scripts/install-shell
 
 El usuario quiere comodidad de "un solo comando" sin romper esa separación. La solución acordada es un script fino `scripts/install.sh` que actúa como punto de entrada único, invocando a los scripts existentes sin duplicar ni mezclar su lógica interna.
 
+> **Actualización**: este mecanismo fue ampliado por `docs/plan-asistente-instalacion-gentleman.md`, que añade más categorías (multiplexor, prompt, herramientas de desarrollo) y sustituye el menú simple por un checklist con `gum choose --no-limit`. Ver ese documento para el diseño vigente.
+
 ## Objetivo
 
 Añadir `scripts/install.sh` que:
@@ -19,6 +21,8 @@ Añadir `scripts/install.sh` que:
 - `scripts/install.sh` presenta un menú (p. ej. `shell` / `terminal` / `ambos`).
 - Según la respuesta, ejecuta el/los script(s) correspondiente(s) con `./scripts/install-shell.sh` y/o `./scripts/install-terminal.sh`.
 - El `README.md` se actualiza para documentar `scripts/install.sh` como el punto de entrada recomendado, dejando también documentados los scripts individuales para uso directo.
+
+(Mecanismo vigente: checklist con `gum choose --no-limit` sobre shell/terminal/multiplexor/prompt/devtools — ver `docs/plan-asistente-instalacion-gentleman.md`.)
 
 ## Restricciones / alcance
 
