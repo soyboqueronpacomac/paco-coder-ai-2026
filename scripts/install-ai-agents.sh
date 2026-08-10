@@ -26,6 +26,15 @@ asegurar_gum() {
   brew install gum
 }
 
+asegurar_jq() {
+  if command -v jq >/dev/null 2>&1; then
+    return 0
+  fi
+  echo "jq no está instalado. Instalando..."
+  asegurar_homebrew
+  brew install jq
+}
+
 requerir_npm() {
   if ! command -v npm >/dev/null 2>&1; then
     echo "Esta herramienta requiere Node/npm. Instálalo primero con ./scripts/install-devtools.sh (elige 'node')." >&2
@@ -33,13 +42,37 @@ requerir_npm() {
   fi
 }
 
+registrar_statusline_claude_code() {
+  local settings="$HOME/.claude/settings.json"
+  local script_statusline="$DIRECTORIO_SCRIPT/statusline.sh"
+
+  asegurar_jq
+  mkdir -p "$(dirname "$settings")"
+  if [[ ! -f "$settings" ]]; then
+    echo '{}' > "$settings"
+  fi
+
+  local temporal
+  temporal=$(mktemp)
+  jq --arg comando "$script_statusline" \
+    '.statusLine = {"type": "command", "command": $comando}' \
+    "$settings" > "$temporal"
+  mv "$temporal" "$settings"
+
+  echo "StatusLine de tokens registrado en $settings."
+}
+
 instalar_claude_code() {
   if command -v claude >/dev/null 2>&1; then
     echo "Claude Code ya está instalado."
-    return 0
+  else
+    requerir_npm
+    npm install -g @anthropic-ai/claude-code
   fi
-  requerir_npm
-  npm install -g @anthropic-ai/claude-code
+
+  if gum confirm "¿Registrar el statusLine de barras de progreso de tokens en ~/.claude/settings.json?"; then
+    registrar_statusline_claude_code
+  fi
 }
 
 instalar_codex() {

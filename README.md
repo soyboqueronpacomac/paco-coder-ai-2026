@@ -70,3 +70,5 @@ Checklist (`gum choose --no-limit`) para instalar, en cualquier combinación: No
 ```
 
 Checklist (`gum choose --no-limit`) para instalar, en cualquier combinación (o ninguna): Claude Code, Codex CLI y Gemini CLI (vía `npm install -g`, requieren Node/npm — instálalo primero con el asistente de herramientas de desarrollo) y OpenCode (vía Homebrew).
+
+Al instalar Claude Code, se ofrece registrar un `statusLine` personalizado (`scripts/statusline.sh`, requiere `jq`) que añade, debajo del chat, barras de progreso de tokens de sesión (5h), tokens semanales (7d) y ventana de contexto, junto con la hora de reseteo de cada límite. Los datos de sesión/semanales solo están disponibles en cuentas Claude.ai Pro/Max; en el resto de casos el script muestra "n/d" sin fallar. El registro fusiona la clave `statusLine` en `~/.claude/settings.json` sin sobrescribir el resto de tu configuración.
