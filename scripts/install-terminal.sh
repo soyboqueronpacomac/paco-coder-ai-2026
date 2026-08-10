@@ -42,13 +42,13 @@ asegurar_homebrew() {
   eval "$(/opt/homebrew/bin/brew shellenv)"
 }
 
-asegurar_fzf() {
-  if command -v fzf >/dev/null 2>&1; then
+asegurar_gum() {
+  if command -v gum >/dev/null 2>&1; then
     return 0
   fi
-  echo "fzf no está instalado. Instalando..."
+  echo "gum no está instalado. Instalando..."
   asegurar_homebrew
-  brew install fzf
+  brew install gum
 }
 
 instalar_emulador() {
@@ -74,16 +74,15 @@ main() {
   emulador_actual=$(detectar_emulador_actual)
   echo "Emulador de terminal detectado: $emulador_actual"
 
-  read -r -p "¿Instalar o cambiar emulador? [S/n] " decision
-  decision="${decision:-n}"
-  if [[ ! "$decision" =~ ^[Ss]$ ]]; then
+  asegurar_gum
+
+  if ! gum confirm --default=false "¿Instalar o cambiar emulador?"; then
     echo "Manteniendo $emulador_actual. No se realizan cambios."
     exit 0
   fi
 
-  asegurar_fzf
   local emulador_elegido
-  emulador_elegido=$(printf '%s\n' $EMULADORES_SOPORTADOS | fzf --prompt="Elige un emulador> ")
+  emulador_elegido=$(gum choose $EMULADORES_SOPORTADOS)
 
   if ! emulador_soportado "$emulador_elegido"; then
     echo "Emulador no soportado: $emulador_elegido" >&2
